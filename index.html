@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Senior Connect</title>
+  <meta
+    name="description"
+    content="Senior Connect helps seniors build confidence with technology and stay connected with the people they love."
+  />
+  <style>
+    :root {
+      --bg: #d9ece8;
+      --surface: #eef6ea;
+      --text: #58724a;
+      --muted: #6f8762;
+      --primary: #8db36b;
+      --primary-soft: #e6f3eb;
+      --border: #c8decf;
+      --shadow: 0 18px 45px rgba(86, 121, 103, 0.10);
+      --radius: 22px;
+      --max-width: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(217, 236, 232, 0.86);
+      border-bottom: 1px solid rgba(200, 222, 207, 0.9);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #72b8b1, #9bcf7a);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.9rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(111, 150, 92, 0.22);
+    }
+
+    .button.secondary {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    .hero {
+      padding: 4.2rem 0 3rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.8rem;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin: 0 0 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 4vw, 4.25rem);
+      max-width: 12ch;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+    }
+
+    .hero p,
+    .section-copy,
+    .card p,
+    .impact-card p,
+    .testimonial p,
+    .contact-card p,
+    .footer p,
+    li {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .hero-panel,
+    .section-card,
+    .impact-card,
+    .testimonial,
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      padding: 1.2rem;
+    }
+
+    .panel-image {
+      position: relative;
+      min-height: 420px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #cfe3dc;
+      display: flex;
+      align-items: end;
+    }
+
+    .panel-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(48, 79, 70, 0.08) 0%, rgba(48, 79, 70, 0.58) 100%);
+    }
+
+    .panel-image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .panel-copy {
+      position: relative;
+      z-index: 1;
+      padding: 1.2rem;
+      color: white;
+    }
+
+    .panel-copy strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .panel-copy span {
+      display: block;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.6rem 0 0;
+    }
+
+    .stat {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1rem;
+    }
+
+    .stat-number {
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.25rem;
+    }
+
+    section {
+      padding: 2.75rem 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: end;
+      margin-bottom: 1.4rem;
+    }
+
+    .cards-3,
+    .cards-2,
+    .gallery-grid,
+    .impact-grid,
+    .contact-grid,
+    .founder-grid,
+    .story-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .cards-3 { grid-template-columns: repeat(3, 1fr); }
+    .cards-2 { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    .impact-grid { grid-template-columns: repeat(3, 1fr); }
+    .contact-grid { grid-template-columns: 1.2fr 0.8fr; }
+    .founder-grid { grid-template-columns: repeat(2, 1fr); }
+    .story-grid { grid-template-columns: 0.95fr 1.05fr; align-items: center; }
+
+    .card,
+    .impact-card,
+    .testimonial,
+    .contact-card {
+      padding: 1.4rem;
+    }
+
+    .card h3,
+    .impact-card h3,
+    .contact-card h3,
+    .testimonial h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.35rem 0.65rem;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    ul.clean-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    ul.clean-list li {
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    ul.clean-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .impact-card .stat-number {
+      font-size: 2rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .gallery-box {
+      min-height: 230px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #e4f1ee, #eef6ea);
+      border: 1px dashed #b7d2bf;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .gallery-box img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .story-image {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .story-image img {
+      width: 100%;
+      height: 100%;
+      max-height: 560px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .founder-photo {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 18px;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+    }
+
+    .leadership-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .leadership-card {
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .contact-card form {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0.95rem 1rem;
+      font: inherit;
+      background: white;
+      color: var(--text);
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .footer {
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+    }
+
+    .footer-card {
+      border-top: 1px solid var(--border);
+      padding-top: 1.4rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .small {
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .section-head,
+      .contact-grid,
+      .cards-3,
+      .gallery-grid,
+      .impact-grid,
+      .cards-2,
+      .story-grid,
+      .founder-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        gap: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#top" class="brand">
+        <span class="brand-mark">SC</span>
+        <span>Senior Connect</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="#impact">Impact</a>
+        <a href="#partners">Partners</a>
+        <a href="#stories">Stories</a>
+        <a href="#our-story">Our Story</a>
+        <a href="#founders">Founders</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Digital literacy for older adults</div>
+          <h1>Helping seniors stay connected through technology.</h1>
+          <p>
+            Senior Connect helps older adults build confidence using smartphones, FaceTime,
+            messaging, and other communication tools so they can stay connected with family,
+            caregivers, and the people they love.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#contact">Partner With Us</a>
+            <a class="button secondary" href="#about">Learn More</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-number">500+</div>
+              <p>Seniors served through recurring visits and digital literacy support.</p>
+            </div>
+            <div class="stat">
+              <div class="stat-number">15</div>
+              <p>Assisted living facilities reached through year-round programming.</p>
+            </div>
+            <div class="stat">
+              <div class="stat-number">300+</div>
+              <p>Program hours dedicated to instruction, volunteer support, and operations.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="panel-image">
+            <img src="images/IMG_6589.jpg" alt="Senior Connect volunteers helping seniors during a digital literacy visit" />
+            <div class="panel-copy">
+              <strong>Technology as a bridge to family and belonging</strong>
+              <span>
+                Senior Connect is about more than teaching devices. It is about patience,
+                confidence, dignity, and the small moments of connection that matter most.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="tag">About Senior Connect</div>
+            <h2>Warm, patient support comes first.</h2>
+          </div>
+          <p class="section-copy">
+            Senior Connect was created to address a simple problem with serious consequences:
+            many older adults are left out of everyday communication because they do not feel
+            confident using technology. Our work focuses on reducing social isolation by making
+            digital tools feel more accessible, personal, and welcoming.
+          </p>
+        </div>
+
+        <div class="cards-3">
+          <article class="card hero-panel">
+            <h3>Our mission</h3>
+            <p>
+              To help seniors build confidence with technology and strengthen their connection
+              to family, caregivers, and community.
+            </p>
+          </article>
+
+          <article class="card hero-panel">
+            <h3>What makes the program different</h3>
+            <p>
+              We do not stop at technical instruction. We take time to listen, build trust,
+              and make sure every participant feels seen, valued, and supported.
+            </p>
+          </article>
+
+          <article class="card hero-panel">
+            <h3>How we work</h3>
+            <p>
+              Through recurring workshops and one-on-one support in assisted living facilities,
+              Senior Connect provides patient, practical guidance tailored to each resident.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="programs">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="tag">Programs</div>
+            <h2>What we do</h2>
+          </div>
+          <p class="section-copy">
+            Senior Connect offers recurring, hands-on support that helps older adults feel more
+            confident using technology and more connected to the people they love.
+          </p>
+        </div>
+
+        <div class="cards-3">
+          <article class="card section-card">
+            <h3>Digital literacy workshops</h3>
+            <p>
+              Hands-on group sessions that help seniors understand the basics of smartphones,
+              calling, messaging, and digital communication.
+            </p>
+          </article>
+
+          <article class="card section-card">
+            <h3>One-on-one technology support</h3>
+            <p>
+              Personalized guidance for seniors who need extra help learning features step by
+              step, at their own pace.
+            </p>
+          </article>
+
+          <article class="card section-card">
+            <h3>Family connection support</h3>
+            <p>
+              Help with FaceTime and other communication tools so residents can stay in touch
+              with loved ones more easily and more often.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="impact">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="tag">Impact</div>
+            <h2>Measured through service and consistency</h2>
+          </div>
+          <p class="section-copy">
+            Senior Connect's impact reflects consistent, relationship-centered work across
+            assisted living communities in South Florida.
+          </p>
+        </div>
+
+        <div class="impact-grid">
+          <article class="impact-card">
+            <div class="stat-number">500+</div>
+            <h3>Seniors served</h3>
+            <p>
+              Residents reached through recurring digital literacy support and
+              relationship-based visits.
+            </p>
+          </article>
+
+          <article class="impact-card">
+            <div class="stat-number">15</div>
+            <h3>Partner facilities</h3>
+            <p>
+              Assisted living facilities participating in year-round visits and workshops.
+            </p>
+          </article>
+
+          <article class="impact-card">
+            <div class="stat-number">300+</div>
+            <h3>Program hours</h3>
+            <p>
+              Hours dedicated to instruction, volunteer coordination, preparation, and
+              program operations.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="partners">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="tag">Selected community partners</div>
+            <h2>Working alongside assisted living communities</h2>
+          </div>
+          <p class="section-copy">
+            Senior Connect's work is made possible through recurring partnerships with assisted
+            living communities across Hialeah and Miami. The facilities below are part of the
+            network of community partners where the program has supported seniors with digital
+            literacy and communication tools.
+          </p>
+        </div>
+
+        <div class="cards-3">
+          <article class="card section-card">
+            <h3>Salmo 23 Homes</h3>
+            <p>
+              Assisted living partner locations in Hialeah where Senior Connect has provided
+              residents with support using smartphones, video calling, and basic digital
+              communication tools.
+            </p>
+          </article>
+
+          <article class="card section-card">
+            <h3>Camino de Esperanza</h3>
+            <p>
+              Miami assisted living community partner supporting Senior Connect's work to reduce
+              digital isolation and strengthen family connection.
+            </p>
+          </article>
+
+          <article class="card section-card">
+            <h3>Grandad Elderly Corp</h3>
+            <p>
+              Miami assisted living partner where residents have received one-on-one guidance
+              and patient technology support through recurring visits.
+            </p>
+          </article>
+
+          <article class="card section-card">
+            <h3>Cordero Residence</h3>
+            <p>
+              Community partner where seniors have been supported through FaceTime instruction,
+              digital literacy guidance, and meaningful connection-focused visits.
+            </p>
+          </article>
+
+          <article class="card section-card">
+            <h3>Molina ALF</h3>
+            <p>
+              Miami assisted living community included among Senior Connect's local facility
+              partnerships focused on accessibility, confidence, and connection.
+            </p>
+          </article>
+
+          <article class="card section-card">
+            <h3>Richland Elderly</h3>
+            <p>
+              Assisted living community partner where Senior Connect's visits have helped
+              residents feel heard, valued, and more confident using technology.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="stories">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="tag">Stories & photos</div>
+            <h2>Moments from Senior Connect visits</h2>
+          </div>
+          <p class="section-copy">
+            These moments reflect the heart of Senior Connect: patient support, shared learning,
+            and meaningful time spent with seniors in partner communities.
+          </p>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-box">
+            <img src="images/IMG_6597.jpg" alt="Senior Connect volunteers showing a tablet to residents during a visit" />
+          </div>
+          <div class="gallery-box">
+            <img src="images/IMG_6594.jpg" alt="Senior Connect volunteers providing one-on-one support to seniors" />
+          </div>
+          <div class="gallery-box">
+            <img src="images/IMG_6584.jpg" alt="Senior Connect group visit with seniors in an assisted living home" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="tag">Testimonials</div>
+            <h2>What our community partners say</h2>
+          </div>
+          <p class="section-copy">
+            These reflections from assisted living owners speak to the heart of Senior Connect's
+            work: patience, consistency, and the real joy that comes from helping seniors stay
+            connected to the people they love.
+          </p>
+        </div>
+
+        <div class="cards-3">
+          <article class="testimonial">
+            <h3>Odelmis Bueno</h3>
+            <p class="small"><strong>Owner — Salmo 23 Assisted Living</strong></p>
+            <p>
+              We are incredibly grateful to Samantha and Sophia for the work they have done
+              through Senior Connect across all our Salmo 23 locations. Their dedication,
+              consistency, and genuine care for our residents have made a meaningful difference.
+              From teaching seniors how to use FaceTime to organizing special events, they have
+              brought both connection and joy into our facilities. Our residents look forward
+              to their visits, and we truly appreciate the time, effort, and heart they put into
+              everything they do.
+            </p>
+          </article>
+
+          <article class="testimonial">
+            <h3>María Cristina Rodríguez</h3>
+            <p class="small"><strong>Owner — Camino de Esperanza</strong></p>
+            <p>
+              Senior Connect has been a wonderful addition to our community. Samantha and Sophia
+              bring patience, kindness, and a true sense of purpose when working with our residents.
+              The FaceTime sessions have helped many of our seniors reconnect with their families,
+              something that has deeply impacted their emotional well-being. We are very thankful
+              for their commitment and the positive energy they bring every time they visit.
+            </p>
+          </article>
+
+          <article class="testimonial">
+            <h3>Sissi Rodriguez</h3>
+            <p class="small"><strong>Owner — Cordero Residence</strong></p>
+            <p>
+              Working with Senior Connect has been an amazing experience for our facility.
+              Samantha and Sophia have shown incredible patience while teaching our residents
+              how to use technology, always taking the time to make sure each person feels
+              comfortable and confident. Their presence has created moments of happiness and
+              connection that are truly special. We appreciate not only the time they dedicate,
+              but also the care and respect they show to every resident.
+            </p>
+          </article>
+
+          <article class="testimonial">
+            <h3>Edith Molina</h3>
+            <p class="small"><strong>Owner — Molina ALF</strong></p>
+            <p>
+              We are very thankful to Senior Connect for everything they have done for our
+              residents. The time Samantha and Sophia spend with them, especially during the
+              FaceTime classes, has made a real difference in their daily lives. In addition,
+              their efforts to bring activities and donations to our facility have created joyful
+              and engaging experiences that our residents truly enjoy. Their commitment and
+              compassion do not go unnoticed.
+            </p>
+          </article>
+
+          <article class="testimonial">
+            <h3>Carol Pérez</h3>
+            <p class="small"><strong>Owner — Richland Elderly</strong></p>
+            <p>
+              Senior Connect has brought something very special to our residents. Samantha and
+              Sophia have a unique ability to connect with them, not only by teaching technology
+              but by making them feel valued and heard. The time they dedicate and the experiences
+              they create have had a lasting impact on our community. We are truly grateful for
+              their work and for the difference they continue to make in the lives of our seniors.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="our-story">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="tag">Our story</div>
+            <h2>A mission rooted in connection</h2>
+          </div>
+          <p class="section-copy">
+            Senior Connect grew from a simple belief: no senior should feel left behind by the
+            technology that keeps families close. What began as a personal commitment to serving
+            older adults has grown into a community-centered initiative focused on patience,
+            dignity, and meaningful connection.
+          </p>
+        </div>
+
+        <div class="story-grid">
+          <div class="story-image">
+            <img src="images/founders-together.jpg" alt="Samantha and Sophia together in a family portrait" />
+          </div>
+
+          <article class="card section-card">
+            <h3>Why this work matters</h3>
+            <p>
+              At its heart, Senior Connect is about more than devices and video calls. It is
+              about helping seniors feel seen, heard, and confident enough to reconnect with the
+              people they love. Every visit is built on small moments of trust: sitting beside a
+              resident, answering questions patiently, and turning technology into something
+              welcoming rather than overwhelming.
+            </p>
+            <ul class="clean-list">
+              <li>Patient, one-on-one support that meets seniors where they are</li>
+              <li>Recurring visits that build trust and familiarity over time</li>
+              <li>A commitment to making technology feel personal, accessible, and human</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="founders">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="tag">Founders</div>
+            <h2>Meet Samantha and Sophia Sanabria</h2>
+          </div>
+          <p class="section-copy">
+            Senior Connect was founded by sisters Samantha and Sophia Sanabria, who built the
+            program to help seniors feel more confident with technology and more connected to
+            the people they love.
+          </p>
+        </div>
+
+        <div class="founder-grid">
+          <article class="card section-card">
+            <img class="founder-photo" src="images/samantha.jpg" alt="Portrait of Samantha Sanabria" />
+            <h3>Samantha Sanabria</h3>
+            <p>
+              Samantha helps guide Senior Connect's growth, community relationships, and long-term
+              vision. She is deeply committed to building a program that reduces digital isolation
+              while creating spaces where seniors feel supported, respected, and genuinely cared for.
+            </p>
+          </article>
+
+          <article class="card section-card">
+            <img class="founder-photo" src="images/sophia.jpg" alt="Portrait of Sophia Sanabria" />
+            <h3>Sophia Sanabria</h3>
+            <p>
+              Sophia helps lead recurring visits, digital literacy sessions, and one-on-one
+              technology support for residents. Her hands-on, patient approach helps seniors
+              feel comfortable learning at their own pace and reminds them that connection should
+              never feel out of reach.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="leadership">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="tag">Leadership</div>
+            <h2>Meet Aaron Sadovnik</h2>
+          </div>
+          <p class="section-copy">
+            Senior Connect is also supported by dedicated team members who help strengthen the organization behind the scenes.
+          </p>
+        </div>
+
+        <div class="leadership-wrap">
+          <article class="card section-card leadership-card">
+            <img class="founder-photo" src="images/aaron.jpg" alt="Portrait of Aaron Sadovnik" />
+            <h3>Aaron Sadovnik</h3>
+            <p class="small"><strong>Treasurer</strong></p>
+            <p>
+              Aaron serves as Treasurer of Senior Connect, where he helps oversee budgeting,
+              track donations, and ensure resources are used effectively to support the
+              organization’s mission. He brings a thoughtful and organized approach to managing
+              finances, helping the team plan for sustainable growth. Aaron is committed to
+              making a meaningful impact by supporting initiatives that connect seniors with the
+              tools and confidence to stay engaged in today’s digital world.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container contact-grid">
+        <article class="contact-card">
+          <div class="tag">Get involved</div>
+          <h2>Partner, volunteer, or support the mission</h2>
+          <p>
+            Senior Connect welcomes opportunities to partner with assisted living facilities,
+            community organizations, and supporters who believe in making technology more
+            accessible for older adults.
+          </p>
+          <ul class="clean-list">
+            <li>Partner with us as a facility or community organization</li>
+            <li>Volunteer for workshops or one-on-one support sessions</li>
+            <li>Share the program with families and caregivers</li>
+          </ul>
+        </article>
+
+        <article class="contact-card">
+          <h3>Contact us</h3>
+          <form action="mailto:seniorconnect@gmail.com" method="post" enctype="text/plain">
+            <input class="input" type="text" name="name" placeholder="Your name" />
+            <input class="input" type="email" name="email" placeholder="Your email" />
+            <textarea name="message" placeholder="How would you like to get involved?"></textarea>
+            <button class="button" type="submit">Send Message</button>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-card">
+      <div>
+        <strong>Senior Connect</strong>
+        <p class="small">Helping seniors stay connected through technology.</p>
+      </div>
+      <div>
+        <p class="small">Serving assisted living communities across South Florida.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
